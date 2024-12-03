@@ -2,7 +2,7 @@ metadata Name = 'Create VHub to Virtual Network Connection'
 metadata Author = 'CA8 - CloudGrip'
 
 @description('The VHub Name')
-param parVirtualHubName string = 'vhub-${parLocation}-001'
+param parVirtualHubName string = 'vhub-prod-${parLocation}-001'
 
 @description('The location of the resources to deploy to.')
 param parLocation string = resourceGroup().location
@@ -19,7 +19,7 @@ resource hubVirtualNetworkConnection 'Microsoft.Network/virtualHubs/hubVirtualNe
     name: '${resVhub.name}-${vnet.RemoteVirtualNetworkName}'
     parent: resVhub
     properties: {
-      enableInternetSecurity: false
+      enableInternetSecurity: vnet.EnableInternetSecurity
       remoteVirtualNetwork: {
         id: resourceId(
           vnet.RemoteVirtualNetworkSubscriptionId,
@@ -36,4 +36,5 @@ type peeredVnet = {
   RemoteVirtualNetworkName: string
   RemoteVirtualNetworkResourceGroupName: string
   RemoteVirtualNetworkSubscriptionId: string
+  EnableInternetSecurity: bool
 }
