@@ -103,6 +103,11 @@ resource resRoutingIntent 'Microsoft.Network/virtualHubs/routingIntent@2023-11-0
         destinations: ['Internet']
         nextHop: avmFirewall.outputs.resourceId
       }
+      {
+        name: 'PrivateTraffic'
+        destinations: ['Internet']
+        nextHop: avmFirewall.outputs.resourceId
+      }
     ]
   }
 }
